@@ -2,17 +2,33 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthButtons from "./components/AuthButtons";
 import ProtectedRoute from "./components/ProtectedRoute";
+import HomePage from "./pages/Home"; // Assuming this is your Home page
+import LoginPage from "./pages/Login"; // Assuming this is your Login page
 
-const Dashboard = () => <h1>Dashboard: Private Page</h1>;
+const Dashboard = () => (
+  <div>
+    <h1>Dashboard: Private Page</h1>
+    <p>Welcome to your private dashboard!</p>
+  </div>
+);
 
 function App() {
   return (
     <Router>
       <div>
-        <h1>My React Auth0 App</h1>
+        {/* Header */}
+        <h1>VoluntEasy</h1>
         <AuthButtons />
+
+        {/* Define Routes */}
         <Routes>
-          <Route path="/" element={<h2>Home Page</h2>} />
+          {/* Public Home Page */}
+          <Route path="/" element={<HomePage />} />
+
+          {/* Public Login Page */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Private Dashboard Page */}
           <Route path="/dashboard" element={<ProtectedRoute component={Dashboard} />} />
         </Routes>
       </div>
