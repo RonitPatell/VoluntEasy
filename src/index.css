@@ -6,7 +6,8 @@
 }
 
 html, body {
-  height: 100%;
+  height: 100%; /* Full height */
+  width: 100%;  /* Full width */
 }
 
 /* Root Styles */
@@ -29,22 +30,34 @@ html, body {
   --primary-color: #646cff;
   --primary-hover: #535bf2;
   --background-light: #ffffff;
-  --background-dark: #242424;
-  --text-light: #ffffff;
+  --background-dark: #e3e3e3;
+  --text-light: #000000;
   --text-dark: #000000;
 }
 
 /* Body Styling */
 body {
-  margin: 0;
   font-family: 'Inter', sans-serif;
   background-color: var(--background-dark);
   color: var(--text-light);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 0 1rem;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: flex-start; /* Content starts from top */
+  align-items: stretch; /* Fill the full width */
+  height: 100%; /* Full height */
+  width: 100%; /* Full width */
+}
+
+/* Container Class */
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px; /* Optional max width */
+  margin: 0 auto; /* Center horizontally */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out content vertically */
 }
 
 /* Links */
