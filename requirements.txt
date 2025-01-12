@@ -6,3 +6,5 @@ requests
 streamlit
 schedule
 Flask
+flask-cors 
+flask-sqlalchemy
