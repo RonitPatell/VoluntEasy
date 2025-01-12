@@ -1,38 +1,49 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import json
+from flask import Flask, render_template, jsonify
 
-driver = webdriver.Chrome()
-url = 'https://www.volunteermatch.org/search/?v=true&onloc=false'
-driver.get(url)
-driver.implicitly_wait(10)
+app = Flask(__name__)
 
-soup = BeautifulSoup(driver.page_source, 'html.parser')
+def scrape_data():
+    driver = webdriver.Chrome()
+    url = 'https://www.volunteermatch.org/search/?v=true&onloc=false'
+    driver.get(url)
+    driver.implicitly_wait(10)
 
-driver.quit()
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
 
-data = []
-events = soup.find_all("li", class_="pub-srp-opps__opp pub-srp-opps__opp--ao")
+    driver.quit()
 
-for event in events:
-    eventName = event.find("span").get_text(strip=True)
-    description = event.find("p", class_="pub-srp-opps__desc").get_text(strip=True)
-    link = event.find("a", href=True)["href"]
-    fullLink = "https://www.volunteermatch.org" + link
-    datePosted = event.find("div", class_="pub-srp-opps__posted pub-srp-opps__sml-txt").get_text(strip=True)
+    data = []
+    events = soup.find_all("li", class_="pub-srp-opps__opp pub-srp-opps__opp--ao")
 
-    data.append({
-        "eventName": eventName,
-        "description": description,
-        "fullLink": fullLink,
-        "datePosted": datePosted
-    })
+    for event in events:
+        eventName = event.find("span").get_text(strip=True)
+        description = event.find("p", class_="pub-srp-opps__desc").get_text(strip=True)
+        link = event.find("a", href=True)["href"]
+        fullLink = "https://www.volunteermatch.org" + link
+        datePosted = event.find("div", class_="pub-srp-opps__posted pub-srp-opps__sml-txt").get_text(strip=True)
 
-output_file = "volunteer_data.json"
-with open(output_file, "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=4, ensure_ascii=False)
+        data.append({
+            "eventName": eventName,
+            "description": description,
+            "fullLink": fullLink,
+            "datePosted": datePosted
+        })
 
-print(f"Data saved to {output_file}")
+        return data
 
+@app.route("/")
+def home():
+    data = scrape_data()
+    output_file = "volunteer_data.json"
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+    return jsonify(data)
+
+if __name__ == "__main__":
+    app.run(debug=True)
                              
 
