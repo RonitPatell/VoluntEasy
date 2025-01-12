@@ -1,49 +1,38 @@
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import AuthButtons from "./components/AuthButtons";
-// import ProtectedRoute from "./components/ProtectedRoute";
-// import HomePage from "./pages/Home"; // Assuming this is your Home page
-// import LoginPage from "./pages/Login"; // Assuming this is your Login page
-// import Navbar from "./components/Navbar";
+// import React from 'react'; 
+// import { Auth0Provider } from '@auth0/auth0-react';
+// import Navbar from './components/Navbar';
+// import HeroSection from './components/HeroSection';
+// import './App.css';
 
-// const Dashboard = () => (
-//   <div>
-//     <h1>Dashboard: Private Page</h1>
-//     <p>Welcome to your private dashboard!</p>
-//   </div>
-// );
+// const App = () => {
+//   const domain = 'dev-8ednezwqq36kf4ie.ca.auth0.com';
+//   const clientId = 'PPkqxCFIPfBhSwpkyOGV37o4EVnLG5vj';
 
-// function App() {
 //   return (
-//     <Router>
-//       <div>
+//     <Auth0Provider
+//       domain={domain}
+//       clientId={clientId}
+//       authorizationParams={{
+//         redirect_uri: window.location.origin,
+//       }}
+//     >
+//       <div className="app">
 //         <Navbar />
-//         {/* Header */}
-//         <h1>VoluntEasy</h1>
-//         <AuthButtons />
-
-//         {/* Define Routes */}
-//         <Routes>
-//           {/* Public Home Page */}
-//           <Route path="/" element={<HomePage />} />
-
-//           {/* Public Login Page */}
-//           <Route path="/login" element={<LoginPage />} />
-
-//           {/* Private Dashboard Page */}
-//           <Route path="/dashboard" element={<ProtectedRoute component={Dashboard} />} />
-//         </Routes>
+//         <HeroSection />
 //       </div>
-//     </Router>
+//     </Auth0Provider>
 //   );
-// }
+// };
 
 // export default App;
 
-import React from 'react'; 
-import { Auth0Provider } from '@auth0/auth0-react';
+import React from 'react';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import Dashboard from './pages/Dashboard';
+import Volunteering from './pages/Volunteering';
 import './App.css';
 
 const App = () => {
@@ -58,12 +47,41 @@ const App = () => {
         redirect_uri: window.location.origin,
       }}
     >
-      <div className="app">
+      <Router>
         <Navbar />
-        <HeroSection />
-      </div>
+        <Routes>
+          {/* Home Route */}
+          <Route path="/" element={<Home />} />
+          {/* Dashboard Route */}
+          <Route path="/dashboard" element={<ProtectedRoute component={Dashboard} />} />
+          {/* Volunteering Route */}
+          <Route path="/volunteering" element={<ProtectedRoute component={Volunteering} />} />
+        </Routes>
+      </Router>
     </Auth0Provider>
   );
+};
+
+const Home = () => {
+  const { isAuthenticated } = useAuth0();
+
+  if (isAuthenticated) {
+    // Redirect authenticated users to the Dashboard
+    return <Navigate to="/dashboard" />;
+  }
+
+  return <HeroSection />;
+};
+
+const ProtectedRoute = ({ component: Component }) => {
+  const { isAuthenticated } = useAuth0();
+
+  if (!isAuthenticated) {
+    // Redirect to the home page if not authenticated
+    return <Navigate to="/" />;
+  }
+
+  return <Component />;
 };
 
 export default App;
