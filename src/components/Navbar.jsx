@@ -50,7 +50,6 @@ const Navbar = () => {
         <img src="../public/logo.svg" alt="Company Logo" />
       </div>
       <div className="navbar-links">
-        <Link to="/" className="nav-link">Home</Link>
         {isAuthenticated && (
           <>
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
