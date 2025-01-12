@@ -3,12 +3,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(228, 181, 51);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
   .navbar-logo img {
-    height: 40px;
+    height: 55px;
   }
   
   .navbar-links {
@@ -20,17 +20,16 @@
   .nav-link {
     color: black;
     text-decoration: none;
-    font-weight: 500;
-    font-weight: bold;
+    font-weight: bolder;
     transition: color 0.3s ease;
   }
   
   .nav-link:hover {
-    color: var(--accent-color);
+    color: white;
   }
   
   .login-button {
-    background-color: var(--accent-color);
+    background-color: white;
     color: black;
     border: none;
     padding: 0.5rem 1rem;
