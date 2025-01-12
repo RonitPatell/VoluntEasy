@@ -12,9 +12,8 @@ const HeroSection = () => {
       ) : (
         <div className="hero-section">
       <div className="hero-content">
-        <h1>Welcome to the Future</h1>
-        <p>Experience tomorrow's technology, today.</p>
-        <button className="cta-button">Get Started</button>
+        <h1>Welcome to VoluntEasy</h1>
+        <p>Discover volunteering opportunities and track your progress.</p>
       </div>
       <div className="hero-image">
         <div className="futuristic-shape"></div>

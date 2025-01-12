@@ -13,13 +13,14 @@
   
   h1 {
     font-size: 3.5rem;
-    color: var(--text-dark);
+    color: white;
     margin-bottom: 1rem;
   }
   
   p {
     font-size: 1.2rem;
-    color: var(--text-muted);
+    color: white;
+
     margin-bottom: 2rem;
   }
   
