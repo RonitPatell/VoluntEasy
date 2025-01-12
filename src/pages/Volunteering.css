@@ -1,0 +1,74 @@
+.volunteering {
+    text-align: center; /* Center the text horizontally */
+    font-size: 2.5rem; /* Modern, large font size */
+    font-weight: bolder; /* Bold font */
+    color: white; /*s Neutral dark color for accessibility */
+    text-transform: uppercase; /* Modern uppercase style */
+    padding: 1rem; /* Add spacing above and below text */
+    transform: translateY(25px);
+}
+
+.desc {
+    text-align: center; /* Center the text horizontally */
+    font-size: 20px;
+    color: white; /*s Neutral dark color for accessibility */
+    text-transform: uppercase; /* Modern uppercase style */
+    transform: translateY(-5px);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    gap: 1.5rem; /* Add spacing between cards */
+    justify-content: center; /* Center the cards */
+    padding: 2rem;
+  }
+  
+  .card {
+    background-color: #ffffff; /* Card background */
+    color: #000000; /* Text color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    padding: 1.5rem;
+    width: 450px; /* Set a fixed width */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card h2 {
+    color: black;
+    font-weight:bolder;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #333; /* Slightly darker text for readability */
+  }
+  
+  .card a {
+    margin-top: auto; /* Push the link to the bottom */
+    transform: translateX(240px);
+    background-color: gold;
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card a:hover {
+    color: #020a96;
+  }
+  
