@@ -9,7 +9,7 @@ const About = () => {
         <div className="container mx-auto">
           <div className="about-box bg-gold text-dark-blue mx-auto rounded-lg shadow-md">
             <h1 className="text-4xl font-bold text-center">About VoluntEasy</h1>
-            <p className="text-lg text-center mt-4">
+            <p className="text-lg sub mt-4">
               Making volunteering easier and more accessible for everyone.
             </p>
           </div>

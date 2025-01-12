@@ -1,7 +1,6 @@
 /* Colors */
 :root {
     --gold: #f2c94c;
-    --dark-blue: #1c203b;
     --light-blue: #2c3558;
     --white: #ffffff;
   }
@@ -12,17 +11,22 @@
   }
   
   .about-header {
+    width: 100%;
+    max-width: 2000px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--dark-blue); /* Background matches page */
+    background-color: var(--dark-blue); /* Match the page's background */
+    height: 50vh;
   }
   
   .about-box {
-    max-width: 800px;
+    width: 100%;
+    max-width: 2000px;
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
+    align-content: center;
     background-color: var(--gold);
     color: var(--dark-blue);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -42,6 +46,10 @@
     transform: scale(1.05);
   }
   
+  .sub {
+    text-align: center;
+  }
+
   /* Buttons */
   button {
     font-family: inherit;
@@ -57,13 +65,21 @@
   
   /* Utility Classes */
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    width: 100%;
+    max-width: 1200px; /* Adjust this to make it wider (e.g., 1500px or 2000px) */
+    margin: 0 auto;    /* Keep it centered horizontally */
+    padding: 0 2rem;   /* Adjust padding as needed for spacing around the content */
+    display: flex;     /* Enable Flexbox layout */
+    flex-direction: column; /* Ensure content stacks vertically (if necessary) */
+    justify-content: center; /* Center items horizontally */
+    align-items: center;     /* Center items vertically */
+    margin-bottom: 30px;
   }
+  
   
   .text-center {
     text-align: center;
+    text-shadow: 2px 2px black;
   }
   
   .py-12 {
