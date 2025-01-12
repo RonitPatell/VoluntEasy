@@ -40,19 +40,32 @@
 
 // export default App;
 
-import React from 'react';
+import React from 'react'; 
+import { Auth0Provider } from '@auth0/auth0-react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import './App.css';
 
 const App = () => {
+  const domain = 'dev-8ednezwqq36kf4ie.ca.auth0.com';
+  const clientId = 'PPkqxCFIPfBhSwpkyOGV37o4EVnLG5vj';
+
   return (
-    <div className="app">
-      <Navbar />
-      <HeroSection />
-    </div>
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <div className="app">
+        <Navbar />
+        <HeroSection />
+      </div>
+    </Auth0Provider>
   );
 };
 
 export default App;
+
 
