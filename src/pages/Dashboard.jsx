@@ -4,100 +4,155 @@ import './Dashboard.css';
 
 const Dashboard = () => {
   const { isAuthenticated, user } = useAuth0();
-  const goal = 40; // Set a 40-hour volunteering goal
+  const [hours, setHours] = useState(0);
+  const [volunteeringEntries, setVolunteeringEntries] = useState([]);
+  const [newEntry, setNewEntry] = useState({ position: '', location: '', hours: '' });
+  const goal = 40;
 
-  // State for volunteering experiences
-  const [volunteeringExperiences, setVolunteeringExperiences] = useState([]);
-  const [newExperience, setNewExperience] = useState({
-    position: '',
-    location: '',
-    hours: '',
-  });
+  // Fetch hours and entries from the backend
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isAuthenticated || !user) return;
 
-  // Calculate total hours from the table
-  const totalHours = volunteeringExperiences.reduce(
-    (sum, experience) => sum + parseFloat(experience.hours || 0),
-    0
-  );
+      try {
+        // Fetch total hours
+        const hoursResponse = await fetch(`http://127.0.0.1:5000/api/hours/${user.sub}`);
+        const hoursData = await hoursResponse.json();
+        setHours(hoursData.hours || 0);
 
-  // Handle adding a new volunteering experience
-  const handleAddExperience = () => {
-    if (newExperience.position && newExperience.location && parseFloat(newExperience.hours) > 0) {
-      setVolunteeringExperiences([
-        ...volunteeringExperiences,
-        { ...newExperience, hours: parseFloat(newExperience.hours) },
-      ]);
-      setNewExperience({ position: '', location: '', hours: '' });
-    } else {
+        // Fetch volunteer entries
+        const entriesResponse = await fetch(`http://127.0.0.1:5000/api/entries/${user.sub}`);
+        const entriesData = await entriesResponse.json();
+        setVolunteeringEntries(entriesData.entries || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [isAuthenticated, user]);
+
+  // Add a new table entry and update the progress bar
+  const handleAddEntry = async () => {
+    if (!newEntry.position || !newEntry.location || parseFloat(newEntry.hours) <= 0) {
       alert('Please fill in all fields with valid data.');
+      return;
+    }
+
+    const entry = {
+      position: newEntry.position,
+      location: newEntry.location,
+      hours: parseFloat(newEntry.hours),
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/entries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: user.sub, ...entry }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setVolunteeringEntries((prev) => [...prev, entry]);
+        setHours(data.hours); // Update total hours
+        setNewEntry({ position: '', location: '', hours: '' }); // Clear input fields
+      } else {
+        console.error('Error saving entry:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error saving entry:', error);
     }
   };
 
-  // Handle removing a volunteering experience
-  const handleRemoveExperience = (index) => {
-    const updatedExperiences = [...volunteeringExperiences];
-    updatedExperiences.splice(index, 1);
-    setVolunteeringExperiences(updatedExperiences);
+  // Delete a table entry and update the progress bar
+  const handleDeleteEntry = async (entryId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/api/entries/${entryId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setVolunteeringEntries((prev) => prev.filter((entry) => entry.id !== entryId));
+        setHours(data.hours); // Update total hours
+      } else {
+        console.error('Error deleting entry:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting entry:', error);
+    }
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="dashboard-container">
-        <h1>Please log in to access the dashboard</h1>
-      </div>
+  // Reset all hours and entries
+  const handleReset = async () => {
+    const confirmReset = window.confirm(
+      'Are you sure you want to reset your hours and delete all entries? This action cannot be undone.'
     );
-  }
+
+    if (!confirmReset) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/api/reset/${user.sub}`, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        setHours(0);
+        setVolunteeringEntries([]);
+        alert('Your hours and entries have been reset successfully.');
+      } else {
+        console.error('Error resetting hours:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error resetting hours:', error);
+    }
+  };
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Welcome, {user.name}</h1>
+        <h1>Welcome, {isAuthenticated && user ? user.name : 'Guest'}</h1>
       </header>
 
-      {/* Progress Bar Section */}
-      <section className="dashboard-content">
-        <h2>Your Progress</h2>
-        <div className="progress-container">
-          <div className="progress-bar">
-            <div
-              className="progress-fill"
-              style={{ width: `${Math.min((totalHours / goal) * 100, 100)}%` }}
-            ></div>
-          </div>
-          <p>
-            You’ve completed <strong>{Math.min(totalHours, goal)}</strong> out of{' '}
-            <strong>{goal}</strong> hours!
-          </p>
-          {totalHours > goal && (
-            <p className="extra-hours">
-              <strong>{totalHours - goal}</strong> extra hours logged beyond the goal!
-            </p>
-          )}
+      <section className="progress-container">
+        <h2>Track Your Volunteering Hours</h2>
+        <div className="progress-bar">
+          <div
+            className="progress-fill"
+            style={{ width: `${Math.min((hours / goal) * 100, 100)}%` }}
+          ></div>
         </div>
+        <p className="hours-display">
+          {hours < goal
+            ? `You've completed ${hours} out of ${goal} hours!`
+            : `You've exceeded the goal by ${hours - goal} hours!`}
+        </p>
+        <button className="btn-reset" onClick={handleReset}>
+          Reset Hours
+        </button>
       </section>
 
-      {/* Volunteering Experiences Table */}
       <section className="volunteering-experiences">
-        <h2>Volunteering Experiences</h2>
+        <h3>Volunteering Entries</h3>
         <table className="volunteering-table">
           <thead>
             <tr>
               <th>Position</th>
               <th>Location</th>
               <th>Hours</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
-            {volunteeringExperiences.map((experience, index) => (
-              <tr key={index}>
-                <td>{experience.position}</td>
-                <td>{experience.location}</td>
-                <td>{experience.hours}</td>
+            {volunteeringEntries.map((entry) => (
+              <tr key={entry.id}>
+                <td>{entry.position}</td>
+                <td>{entry.location}</td>
                 <td>
+                  {entry.hours}
                   <span
                     className="remove-icon"
-                    onClick={() => handleRemoveExperience(index)}
+                    onClick={() => handleDeleteEntry(entry.id)}
                   >
                     &minus;
                   </span>
@@ -106,35 +161,34 @@ const Dashboard = () => {
             ))}
           </tbody>
         </table>
+      </section>
 
-        {/* Add New Experience Form */}
-        <div className="add-experience-form">
-          <h3>Add New Volunteering Experience</h3>
-          <input
-            type="text"
-            placeholder="Position"
-            value={newExperience.position}
-            onChange={(e) => setNewExperience({ ...newExperience, position: e.target.value })}
-            className="experience-input"
-          />
-          <input
-            type="text"
-            placeholder="Location"
-            value={newExperience.location}
-            onChange={(e) => setNewExperience({ ...newExperience, location: e.target.value })}
-            className="experience-input"
-          />
-          <input
-            type="number"
-            placeholder="Hours"
-            value={newExperience.hours}
-            onChange={(e) => setNewExperience({ ...newExperience, hours: e.target.value })}
-            className="experience-input"
-          />
-          <button className="btn btn-add-experience" onClick={handleAddExperience}>
-            Add Experience
-          </button>
-        </div>
+      <section className="add-experience-form">
+        <h3>Add a New Volunteering Entry</h3>
+        <input
+          type="text"
+          placeholder="Position"
+          className="experience-input"
+          value={newEntry.position}
+          onChange={(e) => setNewEntry({ ...newEntry, position: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Location"
+          className="experience-input"
+          value={newEntry.location}
+          onChange={(e) => setNewEntry({ ...newEntry, location: e.target.value })}
+        />
+        <input
+          type="number"
+          placeholder="Hours"
+          className="experience-input"
+          value={newEntry.hours}
+          onChange={(e) => setNewEntry({ ...newEntry, hours: e.target.value })}
+        />
+        <button className="btn-add-experience" onClick={handleAddEntry}>
+          Add Entry
+        </button>
       </section>
     </div>
   );
