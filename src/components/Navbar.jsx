@@ -48,7 +48,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <img src="/logo.svg" alt="Company Logo" />
+        <img src="../public/logo.svg" alt="Company Logo" />
       </div>
       <div className="navbar-links">
         <a href="/" className="nav-link">Home</a>
