@@ -43,5 +43,13 @@
   .login-button:hover {
     background-color: var(--accent-color-hover);
   }
+
+  .user-info {
+    color: black; /* Change font color to black */
+    font-size: 1rem; /* Optional: Adjust the size */
+    font-weight: bold;
+    margin-right: 1rem; /* Add spacing if necessary */
+  }
+  
   
   

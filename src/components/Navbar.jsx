@@ -43,7 +43,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
   return (
     <nav className="navbar">
@@ -52,19 +52,19 @@ const Navbar = () => {
       </div>
       <div className="navbar-links">
         <a href="/" className="nav-link">Home</a>
-        <a href="/dashboard" className="nav-link">Dashboard</a>
-        
-        {isAuthenticated ? (
+        {isAuthenticated && (
           <>
-            <span className="user-info">Welcome, {user.name}</span>
+            <a href="/dashboard" className="nav-link">Dashboard</a>
+            <a href="/volunteering" className="nav-link">Volunteering</a>
             <button
-              className="logout-button"
+              className="login-button logout-button"
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
             >
               Log Out
             </button>
           </>
-        ) : (
+        )}
+        {!isAuthenticated && (
           <button className="login-button" onClick={() => loginWithRedirect()}>
             Log In
           </button>
