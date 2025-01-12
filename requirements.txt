@@ -4,3 +4,5 @@ html5lib
 lxml
 requests
 streamlit
+schedule
+Flask
