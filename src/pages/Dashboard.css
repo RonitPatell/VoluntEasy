@@ -1,0 +1,230 @@
+/* General Layout */
+body {
+    background-color: #121212;
+    color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .dashboard-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #fefefe;
+  }
+  
+  /* Progress Bar Section */
+  .dashboard-content {
+    margin-bottom: 30px;
+  }
+  
+  .progress-container {
+    margin: 20px auto;
+    max-width: 700px;
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .progress-bar {
+    background-color: #444;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20px;
+    margin: 10px 0;
+    position: relative;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #28a745, #85e085);
+    transition: width 1s ease-in-out;
+  }
+  
+  .hours-display {
+    font-size: 1.2rem;
+    margin: 15px 0;
+  }
+  
+  /* Buttons and Inputs */
+  .log-hours-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .hours-input {
+    padding: 10px 15px;
+    border: 2px solid #444;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    transition: border-color 0.3s ease;
+  }
+  
+  .hours-input:focus {
+    border-color: #ff6f61;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform 0.2s, background-color 0.3s ease;
+  }
+  
+  .btn-add {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-add:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+  
+  .btn-subtract {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  
+  .btn-subtract:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+  }
+  
+  /* Volunteering Experiences Table */
+  .volunteering-experiences {
+    margin-top: 40px;
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .volunteering-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+  
+  .volunteering-table th,
+  .volunteering-table td {
+    padding: 12px;
+    text-align: center;
+    color: #f5f5f5;
+  }
+  
+  .volunteering-table th {
+    background-color: #2c2c2c;
+  }
+  
+  .volunteering-table td {
+    background-color: #3a3a3a;
+  }
+  
+  .volunteering-table tr:hover td {
+    background-color: #ff6f61;
+    color: white;
+  }
+  
+  /* Add Experience Form */
+  .add-experience-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .experience-input {
+    padding: 10px 15px;
+    border: 2px solid #444;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    width: 100%;
+    max-width: 400px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .experience-input:focus {
+    border-color: #ff6f61;
+  }
+  
+  .btn-add-experience {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.3s ease;
+  }
+  
+  .btn-add-experience:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .progress-container,
+  .volunteering-experiences {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .volunteering-table td {
+    position: relative;
+  }
+  
+  /* Show minus icon on hover */
+  .remove-icon {
+    font-size: 1.5rem;
+    color: #ff4d4d;
+    cursor: pointer;
+    visibility: hidden;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: visibility 0.3s, color 0.3s;
+  }
+  
+  .volunteering-table tr:hover .remove-icon {
+    visibility: visible;
+  }
+  
+  .remove-icon:hover {
+    color: #cc0000;
+  }
+  
+  
