@@ -20,7 +20,7 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #ff6f61; /* Matches the progress bar accent */
+  color: #ffffff; /* Matches the progress bar accent */
 }
 
 .hero-subtitle {
@@ -34,8 +34,8 @@
   padding: 15px 30px;
   font-size: 1rem;
   font-weight: 600;
-  color: #ffffff;
-  background-color: #ff6f61; /* Matches "Subtract Hours" button */
+  color: #000000;
+  background-color: #ffffff; /* Matches "Subtract Hours" button */
   border: none;
   border-radius: 30px;
   cursor: pointer;

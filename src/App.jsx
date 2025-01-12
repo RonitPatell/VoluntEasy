@@ -32,6 +32,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import Dashboard from './pages/Dashboard';
+import About from './pages/About';
 import Volunteering from './pages/Volunteering';
 import './App.css';
 
@@ -52,6 +53,8 @@ const App = () => {
         <Routes>
           {/* Home Route */}
           <Route path="/" element={<Home />} />
+          {/* About Route */}
+          <Route path="/about" element={<ProtectedRoute component={About} />} />
           {/* Dashboard Route */}
           <Route path="/dashboard" element={<ProtectedRoute component={Dashboard} />} />
           {/* Volunteering Route */}

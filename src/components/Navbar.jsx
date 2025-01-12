@@ -55,6 +55,7 @@ const Navbar = () => {
           <>
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
             <Link to="/volunteering" className="nav-link">Volunteering</Link>
+            <Link to="/about" className="nav-link">About</Link>
             <button
               className="login-button logout-button"
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
