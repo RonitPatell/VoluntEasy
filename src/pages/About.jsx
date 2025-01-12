@@ -20,7 +20,7 @@ const About = () => {
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-8">Our Mission</h2>
           <p className="text-lg mb-12">
-            At VoluntEasy, we aim to connect individuals with eco-volunteering
+            At VoluntEasy, we aim to connect individuals with volunteering
             opportunities, fostering a culture of community service while
             addressing environmental challenges.
           </p>
