@@ -1,0 +1,104 @@
+/* Colors */
+:root {
+    --gold: #f2c94c;
+    --dark-blue: #1c203b;
+    --light-blue: #2c3558;
+    --white: #ffffff;
+  }
+  
+  /* General Page Styles */
+  .about-page {
+    background-color: var(--dark-blue);
+  }
+  
+  .about-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-blue); /* Background matches page */
+  }
+  
+  .about-box {
+    max-width: 800px;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    background-color: var(--gold);
+    color: var(--dark-blue);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cards */
+  .grid div {
+    background-color: var(--light-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .grid div:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Buttons */
+  button {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Utility Classes */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .py-12 {
+    padding: 3rem 0;
+  }
+  
+  .py-16 {
+    padding: 4rem 0;
+  }
+  
+  .px-4 {
+    padding: 0 1rem;
+  }
+  
+  .mt-4 {
+    margin-top: 1rem;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+  
+  .mb-8 {
+    margin-bottom: 2rem;
+  }
+  
+  .mb-12 {
+    margin-bottom: 3rem;
+  }
+  
+  .text-white {
+    color: var(--white);
+  }
+  
+  .text-dark-blue {
+    color: var(--dark-blue);
+  }
+  
